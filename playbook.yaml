@@ -1,0 +1,40 @@
+- hosts: all
+  connection: local
+  collections:
+  - community.vmware
+  - ansible.netcommon
+  tasks:
+  - name: "Search folders for Template - {{ template_name }}"
+    vmware_guest_find:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: False
+      name: "{{ template_name }}"
+    delegate_to: localhost
+    register: template_facts
+
+  - name: Find template folder in our DC and set fact
+    loop: "{{ template_facts.folders }}"
+    when: item is match("/" + datacenter + "/")
+    set_fact:
+      template: "{{ item }}/{{ template_name }}"
+
+  - name: Deploy vm - {{ inventory_hostname }}
+    vmware_guest:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: no
+      datacenter: "{{ datacenter }}"
+      datastore: "{{ datastore }}"
+      state: poweredon
+      folder: "{{ folder }}"
+      template: "{{ template }}"
+      name: "{{ inventory_hostname }}"
+      cluster: "{{ cluster }}"
+      networks: "{{ networks }}"
+      wait_for_ip_address: False
+
+
+
