@@ -1,5 +1,8 @@
 - hosts: all
   connection: local
+  vars:
+    username: "{{ vcenter_username | lookup('env', 'vcenter_username') }}"
+    password: "{{ vcenter_password | lookup('env', 'vcenter_password') }}"
   collections:
   - community.vmware
   - ansible.netcommon
@@ -7,8 +10,8 @@
   - name: "Search folders for Template - {{ template_name }}"
     vmware_guest_find:
       hostname: "{{ vcenter_hostname }}"
-      username: "{{ vcenter_username }}"
-      password: "{{ vcenter_password }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
       validate_certs: False
       name: "{{ template_name }}"
     delegate_to: localhost
@@ -23,8 +26,8 @@
   - name: Deploy vm - {{ inventory_hostname }}
     vmware_guest:
       hostname: "{{ vcenter_hostname }}"
-      username: "{{ vcenter_username }}"
-      password: "{{ vcenter_password }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
       validate_certs: no
       datacenter: "{{ datacenter }}"
       datastore: "{{ datastore }}"
