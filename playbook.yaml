@@ -1,8 +1,8 @@
 - hosts: all
   connection: local
   vars:
-    username: "{{ vcenter_username | lookup('env', 'vcenter_username') }}"
-    password: "{{ vcenter_password | lookup('env', 'vcenter_password') }}"
+    username: "{{ vcenter_username | default(lookup('env', 'vcenter_username')) }}"
+    password: "{{ vcenter_password | default(lookup('env', 'vcenter_password')) }}"
   collections:
   - community.vmware
   - ansible.netcommon
