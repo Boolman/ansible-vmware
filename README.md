@@ -18,6 +18,9 @@ input.json:
         "cluster": "dc1-cluster1",
         "folder": "my folder",
         "template_name": "my_template",
+	"customization": {
+	  "dns_servers": [ "8.8.8.8" ]
+	},
         "networks": [
           {
             "name": "vlan_name_001",
@@ -25,7 +28,6 @@ input.json:
             "netmask": "255.255.255.0",
             "gateway": "10.0.0.1",
             "dswitch_name": "DSwitch",
-            "dns_servers": [ "8.8.8.8" ]
           }
 	]
       }
