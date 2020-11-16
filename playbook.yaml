@@ -24,7 +24,6 @@
       template: "{{ item }}/{{ template_name }}"
 
   - name: Find template in other DC's
-    loop: "{{ template_facts.folders }}"
     when: template is undefined
     set_fact:
       template: "{{ template_facts.folders[0] }}/{{ template_name }}"
