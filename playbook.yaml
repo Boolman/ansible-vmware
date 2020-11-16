@@ -38,6 +38,7 @@
       cluster: "{{ cluster }}"
       networks: "{{ networks }}"
       customization: "{{ customization | default(omit) }}"
+      hardware: "{{ hardware | default(omit) }}"
       wait_for_ip_address: False
 
 

@@ -21,6 +21,11 @@ input.json:
 	"customization": {
 	  "dns_servers": [ "8.8.8.8" ]
 	},
+	"hardware": {
+	  "memory_mb": "8192",
+	  "num_cpus": "8",
+	  "num_cpu_cores_per_socket": "4"
+	},
         "networks": [
           {
             "name": "vlan_name_001",
