@@ -23,6 +23,12 @@
     set_fact:
       template: "{{ item }}/{{ template_name }}"
 
+  - name: Find template in other DC's
+    loop: "{{foo}}"
+    when: template is undefined
+    set_fact:
+      template: "{{ template_facts.folders[0] }}/{{ template_name }}"
+
   - name: Deploy vm - {{ inventory_hostname }}
     vmware_guest:
       hostname: "{{ vcenter_hostname }}"
